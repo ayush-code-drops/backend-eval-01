@@ -15,10 +15,10 @@ app.use(logger)
 
 //Checking Permission Middleware 
 
-const checkPermission = (Route) => {
+const checkPermission = (route) => {
     return (req, res, next) => {
         console.log('In checkPermission middleware');
-        if (req.url == Route) {
+        if (req.url == "/libraries " && route == 'librarian'||req.url=='/authors' && route=='author') {
            console.log('Permission Granted! Route is same as requested');
         }
         else {
@@ -36,13 +36,13 @@ app.get('/books', (req, res, next) => {
 })
 //Get Request for /libraries Route
 
-app.get('/libraries',checkPermission('/libraries'), (req, res, next) => {
+app.get('/libraries',checkPermission('librarian'), (req, res, next) => {
     console.log('Libraries Route');
     res.json({"route":req.url,"permission":true})
 })
 //Get Request for /authors Route
 
-app.get('/authors', checkPermission('/authors'), (req, res, next) => {
+app.get('/authors', checkPermission('author'), (req, res, next) => {
     console.log('Authors route');
     res.json({"route":req.url,"permission":true})
 })
